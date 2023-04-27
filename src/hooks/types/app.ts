@@ -1,7 +1,11 @@
 import store from '@/store'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import type { TypedUseSelectorHook } from 'react-redux'
-type GetStateFnType = typeof store.getState
-export type IRootState = ReturnType<GetStateFnType>
+export type IRootState = ReturnType<typeof store.getState>
 
 export const useAppSelector: TypedUseSelectorHook<IRootState> = useSelector
+
+// dispatch
+type DispatchType = typeof store.dispatch
+
+export const useAppDispatch: () => DispatchType = useDispatch
