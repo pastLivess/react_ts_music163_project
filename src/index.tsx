@@ -4,8 +4,11 @@ import App from '@/App'
 import 'normalize.css'
 import '@/assets/css/index.less'
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
+import { HashRouter } from 'react-router-dom'
 root.render(
   <React.StrictMode>
-    <App />
+    <HashRouter>
+      <App />
+    </HashRouter>
   </React.StrictMode>
 )

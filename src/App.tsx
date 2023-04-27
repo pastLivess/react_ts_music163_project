@@ -1,9 +1,13 @@
 import React, { memo } from 'react'
-
+import { useRoutes } from 'react-router-dom'
+import routes from './router'
 const App = memo(() => {
-  const obj = { name: '张三', age: 18 }
-
-  return <div>App</div>
+  return (
+    <div className="app">
+      <h2>App</h2>
+      {useRoutes(routes)}
+    </div>
+  )
 })
 App.displayName = 'App'
 export default App
