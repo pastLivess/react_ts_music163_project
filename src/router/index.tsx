@@ -7,6 +7,16 @@ const Discover = lazy(() => import('@/views/discover/Discover'))
 const Mine = lazy(() => import('@/views/mine/Mine'))
 const Focus = lazy(() => import('@/views/focus/Focus'))
 const Download = lazy(() => import('@/views/download/Download'))
+// 二级路由
+
+const Album = lazy(() => import('@/views/discover/c-views/album/Album'))
+const Artist = lazy(() => import('@/views/discover/c-views/artist/Artist'))
+const DjRadio = lazy(() => import('@/views/discover/c-views/djradio/DjRadio'))
+const Ranking = lazy(() => import('@/views/discover/c-views/ranking/Ranking'))
+const Songs = lazy(() => import('@/views/discover/c-views/songs/Songs'))
+const Recommend = lazy(
+  () => import('@/views/discover/c-views/recommend/Recommend')
+)
 // 配置路由
 const routes: RouteObject[] = [
   {
@@ -15,7 +25,33 @@ const routes: RouteObject[] = [
   },
   {
     path: '/discover',
-    element: <Discover />
+    element: <Discover />,
+    children: [
+      {
+        path: '/discover/album',
+        element: <Album />
+      },
+      {
+        path: '/discover/artist',
+        element: <Artist />
+      },
+      {
+        path: '/discover/djradio',
+        element: <DjRadio />
+      },
+      {
+        path: '/discover/ranking',
+        element: <Ranking />
+      },
+      {
+        path: '/discover/recommend',
+        element: <Recommend />
+      },
+      {
+        path: '/discover/songs',
+        element: <Songs />
+      }
+    ]
   },
   {
     path: '/mine',
