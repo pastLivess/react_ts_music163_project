@@ -1,6 +1,7 @@
 import React, { Suspense, memo } from 'react'
 import type { ReactNode, FC } from 'react'
 import { Outlet } from 'react-router-dom'
+import Navbar from './c-cpns/navbar/Navbar'
 interface IProps {
   children?: ReactNode
 }
@@ -8,7 +9,7 @@ interface IProps {
 const Discover: FC<IProps> = memo((props: IProps) => {
   return (
     <div>
-      <h2>Discover</h2>
+      <Navbar />
       {/* 显示二级路由 */}
       <Suspense fallback="">
         <Outlet />

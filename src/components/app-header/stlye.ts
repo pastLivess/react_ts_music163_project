@@ -7,6 +7,11 @@ export const AppHeaderWrapper = styled.div`
     /* background-color: orange; */
     ${(props) => props.theme.mixin.wrapv1}
   }
+  .subnav {
+    height: 5px;
+    z-index: 999;
+    background-color: ${(props) => props.theme.color.primary};
+  }
 `
 export const HeaderLeftWrapper = styled.div`
   /* width: 176px; */
@@ -95,6 +100,7 @@ export const HeaderRightWrapper = styled.div`
     line-height: 32px;
     color: #ccc;
     border-radius: 20px;
+    margin: 0 10px;
   }
   .profile {
     cursor: pointer;

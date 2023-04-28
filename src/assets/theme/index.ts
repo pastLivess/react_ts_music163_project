@@ -1,7 +1,8 @@
 const theme = {
   color: {
     primary: '#C20C0C',
-    secondary: ''
+    secondary: '#a40011',
+    thirdly: '#9B0909'
   },
   size: {},
   mixin: {
