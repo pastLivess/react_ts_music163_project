@@ -21,7 +21,7 @@ const Recommend = lazy(
 const routes: RouteObject[] = [
   {
     path: '/',
-    element: <Navigate to="/Download" />
+    element: <Navigate to="/discover/recommend" />
   },
   {
     path: '/discover',

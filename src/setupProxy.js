@@ -1,7 +1,7 @@
 //需要采用CommonJS的写法
 const { createProxyMiddleware } = require('http-proxy-middleware')
 
-module.exports = function (app: any) {
+module.exports = function (app) {
   app.use(
     createProxyMiddleware(
       '/api', //遇见/api-elm前缀的请求,就会触发该代理配置

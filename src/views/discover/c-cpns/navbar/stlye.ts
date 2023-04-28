@@ -20,6 +20,9 @@ export const NavbarWrapper = styled.div`
         &.active {
           background: ${(props) => props.theme.color.thirdly};
         }
+        &:hover {
+          background: ${(props) => props.theme.color.thirdly};
+        }
       }
     }
   }

@@ -11,9 +11,11 @@ interface IProps {
   children?: ReactNode
 }
 import headerTitlesData from '@/assets/data/header-titles.json'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useLocation } from 'react-router-dom'
 
 const AppHeader: FC<IProps> = memo((props: IProps) => {
+  const { pathname } = useLocation()
+
   function showItem({ type, title, path }: any) {
     if (type === 'path') {
       return (
@@ -59,7 +61,9 @@ const AppHeader: FC<IProps> = memo((props: IProps) => {
           <span className="profile">登录</span>
         </HeaderRightWrapper>
       </div>
-      <div className="subnav"></div>
+      {pathname !== '/discover' && pathname !== '/discover/recommend' && (
+        <div className="subnav"></div>
+      )}
     </AppHeaderWrapper>
   )
 })

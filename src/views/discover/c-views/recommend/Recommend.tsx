@@ -1,5 +1,6 @@
-import hyRequest from '@/services'
-import React, { memo, useEffect, useState } from 'react'
+import { useAppDispatch } from '@/hooks/types/app'
+import { fetchBannerDataAction } from '@/store/modules/discover/recommend'
+import React, { memo, useEffect } from 'react'
 import type { ReactNode, FC } from 'react'
 interface IProps {
   children?: ReactNode
@@ -18,17 +19,9 @@ export interface IBannerData {
 }
 
 const Recommend: FC<IProps> = memo((props: IProps) => {
-  const [banners, setBanners] = useState<IBannerData[]>([])
-
+  const dispatch = useAppDispatch()
   useEffect(() => {
-    hyRequest
-      .get({
-        url: '/banner'
-      })
-      .then((res) => {
-        setBanners(res.banners)
-        console.log(res)
-      })
+    dispatch(fetchBannerDataAction())
   }, [])
   return (
     <div>
