@@ -1,4 +1,4 @@
-import React, { memo } from 'react'
+import React, { memo, useState } from 'react'
 import type { ReactNode, FC } from 'react'
 import {
   AppHeaderWrapper,
@@ -9,12 +9,17 @@ interface IProps {
   children?: ReactNode
 }
 import headerTitlesData from '@/assets/data/header-titles.json'
-import { Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 
 const AppHeader: FC<IProps> = memo((props: IProps) => {
   function showItem({ type, title, path }: any) {
     if (type === 'path') {
-      return <Link to={path}>{title}</Link>
+      return (
+        <NavLink to={path}>
+          {title}
+          <i className="icon sprite_01"></i>
+        </NavLink>
+      )
     } else {
       return (
         <a href={path} rel="noreferrer" target="_blank">
@@ -23,7 +28,6 @@ const AppHeader: FC<IProps> = memo((props: IProps) => {
       )
     }
   }
-
   return (
     <AppHeaderWrapper>
       <div className="header">

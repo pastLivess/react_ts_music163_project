@@ -50,10 +50,26 @@ export const HeaderLeftWrapper = styled.div`
       a {
         width: 70px;
         height: 100%;
-        padding: 0 8px;
+        padding: 0 5px;
         line-height: 70px;
         font-size: 14px;
         color: #ccc;
+        &.active {
+          background: #000;
+          text-decoration: none;
+          color: #fff;
+        }
+      }
+      .active .icon {
+        display: block;
+        position: absolute;
+        left: 50%;
+        top: 64px;
+        width: 12px;
+        height: 7px;
+        margin-left: -6px;
+        overflow: hidden;
+        background-position: -226px 0;
       }
     }
   }
