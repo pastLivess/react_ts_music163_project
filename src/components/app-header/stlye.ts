@@ -3,20 +3,20 @@ import styled from 'styled-components'
 export const AppHeaderWrapper = styled.div`
   background-color: #242424;
   .header {
-    height: 100px;
+    display: flex;
     /* background-color: orange; */
     ${(props) => props.theme.mixin.wrapv1}
   }
 `
 export const HeaderLeftWrapper = styled.div`
-  width: 176px;
+  /* width: 176px; */
   height: 69px;
   display: flex;
   align-items: center;
+  flex: 1 0 auto;
   .logo {
-    display: block;
     height: 100%;
-    flex: 1 0 176px;
+    width: 176px;
     background-position: 0 0;
     text-indent: -9999px;
   }
@@ -48,7 +48,7 @@ export const HeaderLeftWrapper = styled.div`
         }
       }
       a {
-        width: 70px;
+        width: 90px;
         height: 100%;
         padding: 0 5px;
         line-height: 70px;
@@ -74,4 +74,31 @@ export const HeaderLeftWrapper = styled.div`
     }
   }
 `
-export const HeaderRightWrapper = styled.div``
+export const HeaderRightWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  text-align: center;
+  /* flex: 1 0 auto; */
+  .search {
+    width: 158px;
+    border-radius: 32px;
+    overflow: hidden;
+    .ant-input {
+      font-size: 12px;
+    }
+    /* flex: 1; */
+  }
+  .center {
+    cursor: pointer;
+    width: 90px;
+    border: 1px solid #4f4f4f;
+    line-height: 32px;
+    color: #ccc;
+    border-radius: 20px;
+  }
+  .profile {
+    cursor: pointer;
+    width: 50px;
+    color: #787878;
+  }
+`

@@ -1,5 +1,7 @@
-import React, { memo, useState } from 'react'
+import React, { memo } from 'react'
 import type { ReactNode, FC } from 'react'
+import { Input } from 'antd'
+import { SearchOutlined } from '@ant-design/icons'
 import {
   AppHeaderWrapper,
   HeaderLeftWrapper,
@@ -45,7 +47,17 @@ const AppHeader: FC<IProps> = memo((props: IProps) => {
             })}
           </div>
         </HeaderLeftWrapper>
-        <HeaderRightWrapper></HeaderRightWrapper>
+        <HeaderRightWrapper>
+          <div className="search">
+            <Input
+              placeholder="音乐/视频/电台/用户"
+              prefix={<SearchOutlined />}
+              bordered={true}
+            />
+          </div>
+          <span className="center">创作者中心</span>
+          <span className="profile">登录</span>
+        </HeaderRightWrapper>
       </div>
     </AppHeaderWrapper>
   )
