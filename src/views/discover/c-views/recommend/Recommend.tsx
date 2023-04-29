@@ -1,7 +1,8 @@
-import { useAppDispatch } from '@/hooks/types/app'
+import { useAppDispatch, useAppSelector } from '@/hooks/types/app'
 import { fetchBannerDataAction } from '@/store/modules/discover/recommend'
 import React, { memo, useEffect } from 'react'
 import type { ReactNode, FC } from 'react'
+import TopBanner from './c-cpns/top-banner/TopBanner'
 interface IProps {
   children?: ReactNode
 }
@@ -18,13 +19,17 @@ export interface IBannerData {
   bannerBizType: string
 }
 
-const Recommend: FC<IProps> = memo((props: IProps) => {
+const Recommend: FC<IProps> = memo(() => {
+  const { banners } = useAppSelector((state) => ({
+    banners: state.recommend.banners
+  }))
   const dispatch = useAppDispatch()
   useEffect(() => {
     dispatch(fetchBannerDataAction())
   }, [])
   return (
     <div>
+      <TopBanner banners={banners} />
       <h2>Recommend</h2>
     </div>
   )
