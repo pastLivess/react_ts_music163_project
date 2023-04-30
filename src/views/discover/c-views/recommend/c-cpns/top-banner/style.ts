@@ -1,7 +1,10 @@
 import styled from 'styled-components'
 
 export const TopBannerWrapper = styled.div`
-  transition: all 350ms ease-in 0s;
+  transition: all 50ms linear 0s;
+  /* background: url('http://p1.music.126.net/GDIycUWDSRusx2FQwlq9YA==/109951168578571221.jpg?imageView&blur=40x20'); */
+  /* background-size: 6000px; */
+  /* background-position: center center; */
   .banner {
     position: relative;
     display: flex;
@@ -55,7 +58,7 @@ export const BannerControlWrapper = styled.div`
     display: block;
     position: absolute;
     top: 50%;
-    border: 1px solid red;
+    /* border: 1px solid red; */
     width: 37px;
     height: 63px;
     background: url(${require('@/assets/img/banner_sprite.png')}) 0 9999px
@@ -64,9 +67,15 @@ export const BannerControlWrapper = styled.div`
   .prev {
     left: -68px;
     background-position: 0 -360px;
+    &:hover {
+      background-position: 0 -430px;
+    }
   }
   .next {
     right: -68px;
     background-position: 0 -508px;
+    &:hover {
+      background-position: 0 -578px;
+    }
   }
 `

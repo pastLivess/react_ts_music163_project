@@ -1,4 +1,4 @@
-import React, { memo, useRef } from 'react'
+import React, { memo, useEffect, useRef, useState } from 'react'
 import type { ElementRef, ReactNode, FC } from 'react'
 import {
   BannerControlWrapper,
@@ -14,22 +14,31 @@ interface IProps {
 
 const TopBanner: FC<IProps> = memo(({ banners }: IProps) => {
   const CarouselRef = useRef<ElementRef<typeof Carousel>>(null)
+  const [currentIndex, setCurrentIndex] = useState(0)
   function handlerBtnClick(control: string) {
     if (control === 'prev') CarouselRef.current?.prev()
     else CarouselRef.current?.next()
   }
+  function handlerAfterChange(current: number) {
+    console.log(current)
+    setCurrentIndex(current)
+  }
+  let imgUrl = `${banners[currentIndex]?.imageUrl}`
+  if (imgUrl) {
+    imgUrl = imgUrl + '?imageView&blur=40x20'
+  }
   return (
     <TopBannerWrapper
-    // style={{
-    //   background: `url('${}) center center / 6000px`
-    // }}
+      style={{
+        background: `url("${imgUrl}") center center / 6000px`
+      }}
     >
       <div className="banner">
         <LeftBannerWrapper>
           <Carousel
+            afterChange={handlerAfterChange}
             ref={CarouselRef}
-            easing="ease-in"
-            autoplaySpeed={2000}
+            effect="fade"
             autoplay
             waitForAnimate={true}
           >
