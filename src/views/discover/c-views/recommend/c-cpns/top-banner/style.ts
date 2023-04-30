@@ -20,6 +20,27 @@ export const LeftBannerWrapper = styled.div`
     width: 100%;
     height: 285px;
   }
+  .dots {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 259px;
+    left: 0;
+    width: 730px;
+    height: 20px;
+    .item {
+      cursor: pointer;
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      background: url(${require('@/assets/img/banner_sprite.png')}) 3px -343px;
+      &:hover,
+      &.active {
+        background-position: -16px -343px;
+      }
+    }
+  }
 `
 export const RightBannerWrapper = styled.a.attrs({
   href: 'https://music.163.com/#/download',

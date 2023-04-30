@@ -1,5 +1,6 @@
 import React, { memo, useEffect, useRef, useState } from 'react'
 import type { ElementRef, ReactNode, FC } from 'react'
+
 import {
   BannerControlWrapper,
   LeftBannerWrapper,
@@ -7,6 +8,7 @@ import {
   TopBannerWrapper
 } from './style'
 import { Carousel } from 'antd'
+import classNames from 'classnames'
 interface IProps {
   banners: any[]
   children?: ReactNode
@@ -40,6 +42,7 @@ const TopBanner: FC<IProps> = memo(({ banners }: IProps) => {
             ref={CarouselRef}
             effect="fade"
             autoplay
+            dots={false}
             waitForAnimate={true}
           >
             {banners.map((item) => {
@@ -54,6 +57,19 @@ const TopBanner: FC<IProps> = memo(({ banners }: IProps) => {
               )
             })}
           </Carousel>
+          <ul className="dots">
+            {banners.map((item, index) => {
+              return (
+                <li key={item.imageUrl}>
+                  <span
+                    className={classNames('item', {
+                      active: index === currentIndex
+                    })}
+                  ></span>
+                </li>
+              )
+            })}
+          </ul>
         </LeftBannerWrapper>
         <RightBannerWrapper>
           <div className="download"></div>

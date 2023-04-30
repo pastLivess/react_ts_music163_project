@@ -4,6 +4,11 @@ import React, { memo, useEffect } from 'react'
 import type { ReactNode, FC } from 'react'
 import TopBanner from './c-cpns/top-banner/TopBanner'
 import { shallowEqual } from 'react-redux'
+import {
+  RecommendLeftWrapper,
+  RecommendRightWrapper,
+  RecommendWrapper
+} from './style'
 interface IProps {
   children?: ReactNode
 }
@@ -34,7 +39,12 @@ const Recommend: FC<IProps> = memo(() => {
   return (
     <div>
       <TopBanner banners={banners} />
-      <h2>Recommend</h2>
+      <RecommendWrapper>
+        <div className="main">
+          <RecommendLeftWrapper>left</RecommendLeftWrapper>
+          <RecommendRightWrapper>right</RecommendRightWrapper>
+        </div>
+      </RecommendWrapper>
     </div>
   )
 })
