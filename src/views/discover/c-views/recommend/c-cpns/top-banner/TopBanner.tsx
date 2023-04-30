@@ -1,5 +1,5 @@
-import React, { memo } from 'react'
-import type { ReactNode, FC } from 'react'
+import React, { memo, useRef } from 'react'
+import type { ElementRef, ReactNode, FC } from 'react'
 import {
   BannerControlWrapper,
   LeftBannerWrapper,
@@ -13,6 +13,11 @@ interface IProps {
 }
 
 const TopBanner: FC<IProps> = memo(({ banners }: IProps) => {
+  const CarouselRef = useRef<ElementRef<typeof Carousel>>(null)
+  function handlerBtnClick(control: string) {
+    if (control === 'prev') CarouselRef.current?.prev()
+    else CarouselRef.current?.next()
+  }
   return (
     <TopBannerWrapper
     // style={{
@@ -22,6 +27,7 @@ const TopBanner: FC<IProps> = memo(({ banners }: IProps) => {
       <div className="banner">
         <LeftBannerWrapper>
           <Carousel
+            ref={CarouselRef}
             easing="ease-in"
             autoplaySpeed={2000}
             autoplay
@@ -45,8 +51,14 @@ const TopBanner: FC<IProps> = memo(({ banners }: IProps) => {
           <p className="text">PC 安卓 iPhone WP iPad Mac 六大客户端</p>
         </RightBannerWrapper>
         <BannerControlWrapper>
-          <div className="btn prev"></div>
-          <div className="btn next"></div>
+          <div
+            onClick={() => handlerBtnClick('prev')}
+            className="btn prev"
+          ></div>
+          <div
+            onClick={() => handlerBtnClick('next')}
+            className="btn next"
+          ></div>
         </BannerControlWrapper>
       </div>
     </TopBannerWrapper>

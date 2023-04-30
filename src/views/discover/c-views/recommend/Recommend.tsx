@@ -3,6 +3,7 @@ import { fetchBannerDataAction } from '@/store/modules/discover/recommend'
 import React, { memo, useEffect } from 'react'
 import type { ReactNode, FC } from 'react'
 import TopBanner from './c-cpns/top-banner/TopBanner'
+import { shallowEqual } from 'react-redux'
 interface IProps {
   children?: ReactNode
 }
@@ -20,9 +21,12 @@ export interface IBannerData {
 }
 
 const Recommend: FC<IProps> = memo(() => {
-  const { banners } = useAppSelector((state) => ({
-    banners: state.recommend.banners
-  }))
+  const { banners } = useAppSelector(
+    (state) => ({
+      banners: state.recommend.banners
+    }),
+    shallowEqual
+  )
   const dispatch = useAppDispatch()
   useEffect(() => {
     dispatch(fetchBannerDataAction())
