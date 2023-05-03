@@ -2,11 +2,22 @@ import React, { memo } from 'react'
 import type { ReactNode, FC } from 'react'
 import { HotRecommendWrapper } from './style'
 import SectionHeaderV1 from '@/components/section-header-v1/SectionHeaderV1'
+
+import { useAppSelector } from '@/hooks/types/app'
+import { shallowEqual } from 'react-redux'
 interface IProps {
   children?: ReactNode
 }
 
 const HotRecommend: FC<IProps> = memo((props: IProps) => {
+  const { hotRecommend } = useAppSelector(
+    (state) => ({
+      hotRecommend: state.recommend.hotRecommend
+    }),
+    shallowEqual
+  )
+  console.log(hotRecommend)
+
   return (
     <HotRecommendWrapper>
       <SectionHeaderV1

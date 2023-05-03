@@ -5,3 +5,10 @@ export function getBanners() {
     url: '/banner'
   })
 }
+
+export function getHotRecommend(limit = 8) {
+  return hyRequest.get({
+    url: `/personalized`,
+    params: { limit }
+  })
+}

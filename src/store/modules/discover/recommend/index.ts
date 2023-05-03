@@ -1,4 +1,4 @@
-import { getBanners } from '@/services/modules/discover'
+import { getBanners, getHotRecommend } from '@/services/modules/discover'
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 
 export const fetchBannerDataAction = createAsyncThunk(
@@ -10,12 +10,21 @@ export const fetchBannerDataAction = createAsyncThunk(
     // return res.banners
   }
 )
-
+// 热门推荐
+export const fetchHotRecommendAction = createAsyncThunk(
+  'hotRecommend',
+  async (arg, { dispatch }) => {
+    const res = await getHotRecommend()
+    dispatch(changeHotRecommendAction(res.result))
+  }
+)
 type IRecommendState = {
   banners: any[]
+  hotRecommend: any[]
 }
 const initialState: IRecommendState = {
-  banners: []
+  banners: [],
+  hotRecommend: []
 }
 const recommendStore = createSlice({
   name: 'recommend',
@@ -23,6 +32,9 @@ const recommendStore = createSlice({
   reducers: {
     changeBannersAction(state, { payload }) {
       state.banners = payload
+    },
+    changeHotRecommendAction(state, { payload }) {
+      state.hotRecommend = payload
     }
   }
   /* extraReducers(builder) {
@@ -32,5 +44,6 @@ const recommendStore = createSlice({
   } */
 })
 
-export const { changeBannersAction } = recommendStore.actions
+export const { changeBannersAction, changeHotRecommendAction } =
+  recommendStore.actions
 export default recommendStore.reducer

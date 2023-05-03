@@ -74,12 +74,10 @@ export const BannerControlWrapper = styled.div`
   right: 0;
   top: 50%;
   transform: translateY(-50%);
+  height: 63px;
   .btn {
     cursor: pointer;
-    display: block;
     position: absolute;
-    top: 50%;
-    /* border: 1px solid red; */
     width: 37px;
     height: 63px;
     background: url(${require('@/assets/img/banner_sprite.png')}) 0 9999px
