@@ -47,7 +47,9 @@ const Recommend: FC<IProps> = memo(() => {
       <RecommendWrapper>
         <div className="main">
           <RecommendLeftWrapper>
-            <HotRecommend />
+            <div className="hot-recommend-wrap">
+              <HotRecommend />
+            </div>
           </RecommendLeftWrapper>
           <RecommendRightWrapper>right</RecommendRightWrapper>
         </div>

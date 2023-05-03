@@ -19,7 +19,7 @@ const SectionHeaderV1: FC<IProps> = memo(
   }: IProps) => {
     return (
       <SectionHeaderV1Wrapper className="sprite_02">
-        <div className="left ">
+        <div className="left">
           <Link to="/discover/songs" className="title">
             {title}
           </Link>

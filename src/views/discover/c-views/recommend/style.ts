@@ -11,17 +11,15 @@ export const RecommendWrapper = styled.div`
   .main {
     display: flex;
   }
+  .hot-recommend-wrap {
+    padding: 20px 45px 40px 21px;
+  }
 `
 export const RecommendLeftWrapper = styled.div`
   width: 729px;
-  height: 150px;
-  padding: 20px;
-  /* background-color: skyblue; */
 `
 export const RecommendRightWrapper = styled.div`
-  /* flex: 1 0 250px; */
   width: 250px;
   height: 150px;
   margin-left: 1px;
-  /* background-color: orange; */
 `
