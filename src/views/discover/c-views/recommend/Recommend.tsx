@@ -50,7 +50,7 @@ const Recommend: FC<IProps> = memo(() => {
       <RecommendWrapper>
         <div className="main">
           <RecommendLeftWrapper>
-            <div className="wrapv1">
+            <div className="content">
               <HotRecommend />
               <NewAlbum />
             </div>

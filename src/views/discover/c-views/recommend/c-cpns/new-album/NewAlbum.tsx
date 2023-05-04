@@ -5,6 +5,7 @@ import SectionHeaderV1 from '@/components/section-header-v1/SectionHeaderV1'
 import { Carousel } from 'antd'
 import { useAppSelector } from '@/hooks/types/app'
 import { shallowEqual } from 'react-redux'
+import NewAlbumMenuItem from '@/components/newAlbum-menu-item/NewAlbumMenuItem'
 interface IProps {
   children?: ReactNode
 }
@@ -36,10 +37,14 @@ const NewAlbum: FC<IProps> = memo((props: IProps) => {
             <Carousel speed={1500} ref={carouselRef} dots={false}>
               {[0, 1].map((item) => {
                 return (
-                  <div className="album-list" key={item}>
-                    {newAlbum.slice(item * 5, (item + 1) * 5).map((album) => {
-                      return <div key={album.id}>{album.name}</div>
-                    })}
+                  <div key={item}>
+                    <div className="album-list">
+                      {newAlbum.slice(item * 5, (item + 1) * 5).map((album) => {
+                        return (
+                          <NewAlbumMenuItem key={album.id} itemData={album} />
+                        )
+                      })}
+                    </div>
                   </div>
                 )
               })}
