@@ -2,6 +2,7 @@ import styled from 'styled-components'
 
 export const TopRankingWrapper = styled.div`
   .content {
+    display: flex;
     width: 689px;
     height: 472px;
     margin-top: 20px;
