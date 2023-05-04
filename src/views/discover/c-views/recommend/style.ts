@@ -11,7 +11,7 @@ export const RecommendWrapper = styled.div`
   .main {
     display: flex;
   }
-  .hot-recommend-wrap {
+  .wrapv1 {
     padding: 20px 45px 40px 21px;
   }
 `

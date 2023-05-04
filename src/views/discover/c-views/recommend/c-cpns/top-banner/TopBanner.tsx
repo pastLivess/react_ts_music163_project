@@ -22,7 +22,7 @@ const TopBanner: FC<IProps> = memo(({ banners }: IProps) => {
     else CarouselRef.current?.next()
   }
   function handlerAfterChange(current: number) {
-    console.log(current)
+    // console.log(current)
     setCurrentIndex(current)
   }
   let imgUrl = `${banners[currentIndex]?.imageUrl}`

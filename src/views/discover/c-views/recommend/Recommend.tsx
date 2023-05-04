@@ -13,6 +13,7 @@ import {
   RecommendWrapper
 } from './style'
 import HotRecommend from './c-cpns/hot-recommend/HotRecommend'
+import NewAlbum from './c-cpns/new-album/NewAlbum'
 interface IProps {
   children?: ReactNode
 }
@@ -47,8 +48,9 @@ const Recommend: FC<IProps> = memo(() => {
       <RecommendWrapper>
         <div className="main">
           <RecommendLeftWrapper>
-            <div className="hot-recommend-wrap">
+            <div className="wrapv1">
               <HotRecommend />
+              <NewAlbum />
             </div>
           </RecommendLeftWrapper>
           <RecommendRightWrapper>right</RecommendRightWrapper>

@@ -17,7 +17,7 @@ const HotRecommend: FC<IProps> = memo((props: IProps) => {
     }),
     shallowEqual
   )
-  console.log(hotRecommend)
+  // console.log(hotRecommend)
 
   return (
     <HotRecommendWrapper>

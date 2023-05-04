@@ -2,20 +2,21 @@ import React, { memo } from 'react'
 import type { ReactNode, FC } from 'react'
 import { SongMenuItemWrapper } from './style'
 import { Link } from 'react-router-dom'
+import { formatCount, formatImageToSize } from '@/utils/format'
 interface IProps {
   children?: ReactNode
   itemData: any
 }
 
 const SongMenuItem: FC<IProps> = memo(({ itemData }: IProps) => {
-  console.log(itemData)
+  // console.log(itemData)
 
   return (
     <SongMenuItemWrapper>
       <div className="item">
         <div className="cover">
           <img
-            src={itemData.picUrl}
+            src={formatImageToSize(itemData.picUrl, 140)}
             alt={itemData.name}
             title={itemData.name}
           />
@@ -23,7 +24,7 @@ const SongMenuItem: FC<IProps> = memo(({ itemData }: IProps) => {
           <div className="bottom sprite_cover">
             <div className="icon-play sprite_icon"></div>
             <div className="icon-headset sprite_icon"></div>
-            <div className="view-count">{itemData.playCount}</div>
+            <div className="view-count">{formatCount(itemData.playCount)}</div>
           </div>
         </div>
         <div className="desc">
