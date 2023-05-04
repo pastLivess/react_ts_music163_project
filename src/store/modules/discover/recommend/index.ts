@@ -1,4 +1,8 @@
-import { getBanners, getHotRecommend } from '@/services/modules/discover'
+import {
+  getBanners,
+  getHotRecommend,
+  getNewAlbum
+} from '@/services/modules/discover'
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 
 export const fetchBannerDataAction = createAsyncThunk(
@@ -18,13 +22,25 @@ export const fetchHotRecommendAction = createAsyncThunk(
     dispatch(changeHotRecommendAction(res.result))
   }
 )
+// 新碟上架
+export const fetchNewAlbumAction = createAsyncThunk(
+  'newAlbum',
+  async (arg, { dispatch }) => {
+    const res = await getNewAlbum()
+    console.log(res.albums)
+
+    dispatch(changeNewAlbumAction(res.albums))
+  }
+)
 type IRecommendState = {
   banners: any[]
   hotRecommend: any[]
+  newAlbum: any[]
 }
 const initialState: IRecommendState = {
   banners: [],
-  hotRecommend: []
+  hotRecommend: [],
+  newAlbum: []
 }
 const recommendStore = createSlice({
   name: 'recommend',
@@ -35,6 +51,9 @@ const recommendStore = createSlice({
     },
     changeHotRecommendAction(state, { payload }) {
       state.hotRecommend = payload
+    },
+    changeNewAlbumAction(state, { payload }) {
+      state.newAlbum = payload
     }
   }
   /* extraReducers(builder) {
@@ -44,6 +63,9 @@ const recommendStore = createSlice({
   } */
 })
 
-export const { changeBannersAction, changeHotRecommendAction } =
-  recommendStore.actions
+export const {
+  changeBannersAction,
+  changeHotRecommendAction,
+  changeNewAlbumAction
+} = recommendStore.actions
 export default recommendStore.reducer

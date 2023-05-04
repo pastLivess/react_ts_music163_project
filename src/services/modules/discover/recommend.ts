@@ -12,3 +12,9 @@ export function getHotRecommend(limit = 8) {
     params: { limit }
   })
 }
+export function getNewAlbum(limit = 10) {
+  return hyRequest.get({
+    url: '/album/newest',
+    params: { limit }
+  })
+}

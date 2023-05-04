@@ -1,7 +1,8 @@
 import { useAppDispatch, useAppSelector } from '@/hooks/types/app'
 import {
   fetchBannerDataAction,
-  fetchHotRecommendAction
+  fetchHotRecommendAction,
+  fetchNewAlbumAction
 } from '@/store/modules/discover/recommend'
 import React, { memo, useEffect } from 'react'
 import type { ReactNode, FC } from 'react'
@@ -41,6 +42,7 @@ const Recommend: FC<IProps> = memo(() => {
   useEffect(() => {
     dispatch(fetchBannerDataAction())
     dispatch(fetchHotRecommendAction())
+    dispatch(fetchNewAlbumAction())
   }, [])
   return (
     <div>
