@@ -18,3 +18,9 @@ export function getNewAlbum(limit = 10) {
     params: { limit }
   })
 }
+export function getPlaylistDetail(id: number) {
+  return hyRequest.get({
+    url: '/playlist/detail',
+    params: { id }
+  })
+}

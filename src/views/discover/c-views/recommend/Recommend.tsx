@@ -2,7 +2,8 @@ import { useAppDispatch, useAppSelector } from '@/hooks/types/app'
 import {
   fetchBannerDataAction,
   fetchHotRecommendAction,
-  fetchNewAlbumAction
+  fetchNewAlbumAction,
+  fetchRankingAction
 } from '@/store/modules/discover/recommend'
 import React, { memo, useEffect } from 'react'
 import type { ReactNode, FC } from 'react'
@@ -15,6 +16,7 @@ import {
 } from './style'
 import HotRecommend from './c-cpns/hot-recommend/HotRecommend'
 import NewAlbum from './c-cpns/new-album/NewAlbum'
+import TopRanking from './c-cpns/top-ranking/TopRanking'
 interface IProps {
   children?: ReactNode
 }
@@ -43,6 +45,7 @@ const Recommend: FC<IProps> = memo(() => {
     dispatch(fetchBannerDataAction())
     dispatch(fetchHotRecommendAction())
     dispatch(fetchNewAlbumAction())
+    dispatch(fetchRankingAction())
   }, [])
   return (
     <div>
@@ -53,6 +56,7 @@ const Recommend: FC<IProps> = memo(() => {
             <div className="content">
               <HotRecommend />
               <NewAlbum />
+              <TopRanking />
             </div>
           </RecommendLeftWrapper>
           <RecommendRightWrapper>right</RecommendRightWrapper>

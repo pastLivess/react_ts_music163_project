@@ -9,7 +9,7 @@ interface IProps {
 }
 
 const NewAlbumMenuItem: FC<IProps> = memo(({ itemData }: IProps) => {
-  console.log(itemData)
+  // console.log(itemData)
 
   return (
     <NewAlbumMenuItemWrapper className="sprite_02">
