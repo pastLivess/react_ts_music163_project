@@ -25,4 +25,6 @@ export const RecommendRightWrapper = styled.div`
   width: 250px;
   height: 150px;
   margin-left: 1px;
+  .user-login {
+  }
 `
