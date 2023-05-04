@@ -3,7 +3,8 @@ import {
   fetchBannerDataAction,
   fetchHotRecommendAction,
   fetchNewAlbumAction,
-  fetchRankingAction
+  fetchRankingAction,
+  fetchTopArtistAction
 } from '@/store/modules/discover/recommend'
 import React, { memo, useEffect } from 'react'
 import type { ReactNode, FC } from 'react'
@@ -49,6 +50,7 @@ const Recommend: FC<IProps> = memo(() => {
     dispatch(fetchHotRecommendAction())
     dispatch(fetchNewAlbumAction())
     dispatch(fetchRankingAction())
+    dispatch(fetchTopArtistAction())
   }, [])
   return (
     <div>

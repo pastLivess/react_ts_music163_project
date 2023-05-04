@@ -17,7 +17,7 @@ const NewAlbum: FC<IProps> = memo((props: IProps) => {
     }),
     shallowEqual
   )
-  console.log(newAlbum)
+  // console.log(newAlbum)
 
   const carouselRef = useRef<ElementRef<typeof Carousel>>(null)
   function handlerArrowClick(arrow: string) {

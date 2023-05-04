@@ -1,4 +1,5 @@
 import {
+  getArtistList,
   getBanners,
   getHotRecommend,
   getNewAlbum,
@@ -49,21 +50,31 @@ export const fetchRankingAction = createAsyncThunk(
       //
       const playlists = res.map((item) => item.playlist)
       dispatch(changeRankingsAction(playlists))
-      console.log(playlists)
     })
   }
 )
+// 热门歌手
+export const fetchTopArtistAction = createAsyncThunk(
+  'topArtist',
+  async (arg, { dispatch }) => {
+    const res = await getArtistList()
+    dispatch(changeTopArtistAction(res.artists))
+  }
+)
+
 type IRecommendState = {
   banners: any[]
   hotRecommend: any[]
   newAlbum: any[]
   rankings: any[]
+  topArtist: any[]
 }
 const initialState: IRecommendState = {
   banners: [],
   hotRecommend: [],
   newAlbum: [],
-  rankings: []
+  rankings: [],
+  topArtist: []
 }
 const recommendStore = createSlice({
   name: 'recommend',
@@ -80,6 +91,9 @@ const recommendStore = createSlice({
     },
     changeRankingsAction(state, { payload }) {
       state.rankings = payload
+    },
+    changeTopArtistAction(state, { payload }) {
+      state.topArtist = payload
     }
   }
   /* extraReducers(builder) {
@@ -93,6 +107,7 @@ export const {
   changeBannersAction,
   changeHotRecommendAction,
   changeNewAlbumAction,
-  changeRankingsAction
+  changeRankingsAction,
+  changeTopArtistAction
 } = recommendStore.actions
 export default recommendStore.reducer

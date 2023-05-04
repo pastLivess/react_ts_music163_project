@@ -11,5 +11,5 @@ export function formatImageToSize(
   width: number,
   height = width
 ) {
-  return imageUrl + `?param=${width}x${height}`
+  return imageUrl + `?param=${width}y${height}`
 }

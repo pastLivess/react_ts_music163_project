@@ -24,3 +24,10 @@ export function getPlaylistDetail(id: number) {
     params: { id }
   })
 }
+// 入住歌手(热门歌手)
+export function getArtistList(limit = 5) {
+  return hyRequest.get({
+    url: '/top/artists',
+    params: { limit }
+  })
+}
