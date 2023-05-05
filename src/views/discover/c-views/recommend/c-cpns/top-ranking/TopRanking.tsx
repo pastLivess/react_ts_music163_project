@@ -9,7 +9,7 @@ interface IProps {
   children?: ReactNode
 }
 
-const TopRanking: FC<IProps> = memo((props: IProps) => {
+const TopRanking: FC<IProps> = memo(() => {
   const { rankings } = useAppSelector(
     (state) => ({
       rankings: state.recommend.rankings
@@ -21,7 +21,7 @@ const TopRanking: FC<IProps> = memo((props: IProps) => {
       <SectionHeaderV1 title="榜单" />
       <div className="content">
         {rankings.map((item) => {
-          return <TopRankingItem key={item.id} itemData={item} />
+          return <TopRankingItem key={item?.id} itemData={item} />
         })}
       </div>
     </TopRankingWrapper>

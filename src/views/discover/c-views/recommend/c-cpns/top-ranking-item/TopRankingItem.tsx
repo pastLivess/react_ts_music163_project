@@ -8,8 +8,6 @@ interface IProps {
 }
 
 const TopRankingItem: FC<IProps> = memo(({ itemData }: IProps) => {
-  console.log(itemData)
-  const { tracks } = itemData
   return (
     <TopRankingItemWrapper>
       <div className="top">
@@ -32,7 +30,7 @@ const TopRankingItem: FC<IProps> = memo(({ itemData }: IProps) => {
         </div>
       </div>
       <div className="ranking-list">
-        {tracks.slice(0, 10).map((item: any, index: number) => {
+        {itemData?.tracks?.slice(0, 10)?.map((item: any, index: number) => {
           return (
             <div key={item.id} className="item">
               <span className="ranking-index">{index + 1}</span>
