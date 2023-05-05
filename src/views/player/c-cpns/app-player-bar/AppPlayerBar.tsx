@@ -8,7 +8,7 @@ import {
 } from './style'
 import { useAppSelector } from '@/hooks/types/app'
 import { shallowEqual } from 'react-redux'
-import { formatImageToSize } from '@/utils/format'
+import { formatImageToSize, formatTime } from '@/utils/format'
 import { Slider } from 'antd'
 import { getSongUrl } from '@/services/modules/player'
 
@@ -24,6 +24,8 @@ const PlayerBar: FC<IProps> = memo((props: IProps) => {
   const [progress, setProgress] = useState(0)
   // 总时间
   const [duration, setDuration] = useState(0)
+  // 当前播放的时间
+  const [currentTime, setCurrentTime] = useState(0)
   const { currentSong } = useAppSelector(
     (state) => ({
       currentSong: state.player.currentSong
@@ -41,10 +43,13 @@ const PlayerBar: FC<IProps> = memo((props: IProps) => {
   function handlerTimeUpDate() {
     // 获取当前的播放时间
     const currentTime = audioRef.current!.currentTime
+    // console.log(currentTime)
+
     //音乐总时间
     // 当前歌曲进度
     const progress = ((currentTime * 1000) / duration) * 100
     setProgress(progress)
+    setCurrentTime(currentTime * 1000)
   }
   function handlerPlayBtnClick(e: any) {
     e.preventDefault()
@@ -111,9 +116,9 @@ const PlayerBar: FC<IProps> = memo((props: IProps) => {
                   tooltip={{ formatter: null }}
                 />
                 <div className="time">
-                  <span className="current">00:00</span>
+                  <span className="current">{formatTime(currentTime)}</span>
                   <em>/</em>
-                  <span className="count">04:52</span>
+                  <span className="duration">{formatTime(duration)}</span>
                 </div>
               </div>
             </div>
@@ -150,7 +155,7 @@ const PlayerBar: FC<IProps> = memo((props: IProps) => {
         </div>
       </div>
 
-      <audio ref={audioRef} onTimeUpdate={handlerTimeUpDate} />
+      <audio ref={audioRef} onTimeUpdate={handlerTimeUpDate} loop={true} />
     </AppPlayBarWrapper>
   )
 })

@@ -198,9 +198,6 @@ export const PlayBarInfoWrapper = styled.div`
         > em {
           margin: 0 3px;
         }
-        .count {
-          /* margin-left: 5px; */
-        }
       }
       .ant-slider {
         position: relative;
@@ -212,11 +209,13 @@ export const PlayBarInfoWrapper = styled.div`
           background: url(${require('@/assets/img/progress_bar.png')}) right 0;
         }
         .ant-slider-track {
+          height: 9px;
           background-color: ${(props) => props.theme.color.primary};
         }
         .ant-slider-handle {
+          inset-block-start: none;
           &::after {
-            top: -7px;
+            top: -5px;
             right: -13px;
             width: 22px;
             height: 24px;
