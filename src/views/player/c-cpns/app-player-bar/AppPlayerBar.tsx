@@ -117,16 +117,23 @@ const PlayerBar: FC<IProps> = memo((props: IProps) => {
           </PlayBarControlWrapper>
           <PlayBarInfoWrapper>
             <div className="head">
-              <img src={formatImageToSize(currentSong.al.picUrl, 34)} alt="" />
+              <img
+                src={formatImageToSize(currentSong?.al?.picUrl, 34)}
+                alt=""
+              />
               <a href="#!" className="sprite_playbar"></a>
             </div>
             <div className="play">
               <div className="words">
-                <a href="/" title={currentSong.al.name} className="music-name">
-                  {currentSong.name}
+                <a
+                  href="/"
+                  title={currentSong?.al?.name}
+                  className="music-name"
+                >
+                  {currentSong?.name}
                 </a>
-                <span className="artist-name" title={currentSong.ar.name}>
-                  <a href="">{currentSong.ar[0].name}</a>
+                <span className="artist-name" title={currentSong?.ar?.name}>
+                  <a href="">{currentSong?.ar?.[0]?.name}</a>
                 </span>
                 <a
                   href="#!"
