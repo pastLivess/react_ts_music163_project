@@ -10,13 +10,13 @@ import store from './store'
 import { ThemeProvider } from 'styled-components'
 import theme from './assets/theme'
 root.render(
-  <React.StrictMode>
-    <HashRouter>
-      <ThemeProvider theme={theme}>
-        <Provider store={store}>
-          <App />
-        </Provider>
-      </ThemeProvider>
-    </HashRouter>
-  </React.StrictMode>
+  // <React.StrictMode>
+  <HashRouter>
+    <ThemeProvider theme={theme}>
+      <Provider store={store}>
+        <App />
+      </Provider>
+    </ThemeProvider>
+  </HashRouter>
+  // </React.StrictMode>
 )

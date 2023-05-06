@@ -1,4 +1,5 @@
 import { getSongDetail, getSongLyric } from '@/services/modules/player'
+import { ILyrics, parseLyric } from '@/utils/parse-lyric'
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 
 export const fetchCurrentSongAction = createAsyncThunk(
@@ -13,15 +14,17 @@ export const fetchCurrentSongAction = createAsyncThunk(
     })
     // 2.获取当前歌词信息
     getSongLyric(id).then((res) => {
-      console.log(res)
-      dispatch(changeCurrentSongLyricAction(res.lrc))
+      const lyricString = res.lrc.lyric
+      const lyrics = parseLyric(lyricString)
+      console.log(lyrics)
+      dispatch(changeCurrentSongLyricAction(lyrics))
     })
   }
 )
 
 interface IPlayerState {
   currentSong: any
-  currentSongLyric: any
+  currentSongLyric: ILyrics[]
 }
 const initialState: IPlayerState = {
   currentSong: {},
