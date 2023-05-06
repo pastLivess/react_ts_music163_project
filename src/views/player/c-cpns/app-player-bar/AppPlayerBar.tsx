@@ -11,7 +11,10 @@ import { shallowEqual } from 'react-redux'
 import { formatImageToSize, formatTime } from '@/utils/format'
 import { Slider, message } from 'antd'
 import { getSongUrl } from '@/services/modules/player'
-import { changeCurrentSongLyricIndexAction } from '@/store/modules/player'
+import {
+  changeCurrentSongLyricIndexAction,
+  changePlayModeAction
+} from '@/store/modules/player'
 
 interface IProps {
   children?: ReactNode
@@ -30,12 +33,13 @@ const PlayerBar: FC<IProps> = memo(() => {
   const [currentTime, setCurrentTime] = useState(0)
   // 记录拖拽情况
   const [isSliderChange, setIsSliderChange] = useState(false)
-  const { currentSong, currentSongLyric, currentSongLyricIndex } =
+  const { currentSong, currentSongLyric, currentSongLyricIndex, playMode } =
     useAppSelector(
       (state) => ({
         currentSong: state.player.currentSong,
         currentSongLyric: state.player.currentSongLyric,
-        currentSongLyricIndex: state.player.currentSongLyricIndex
+        currentSongLyricIndex: state.player.currentSongLyricIndex,
+        playMode: state.player.playMode
       }),
       shallowEqual
     )
@@ -111,6 +115,13 @@ const PlayerBar: FC<IProps> = memo(() => {
     setProgress(value) /* 修改当前进度条 */
     // console.log(value)
   }
+  // 切换播放模式
+  function handlerChangePlayMode(e: any) {
+    e.preventDefault()
+    let newPlayMode = playMode + 1
+    if (newPlayMode > 2) newPlayMode = 0
+    dispatch(changePlayModeAction(newPlayMode))
+  }
   return (
     <AppPlayBarWrapper>
       <div className="playbar">
@@ -182,7 +193,7 @@ const PlayerBar: FC<IProps> = memo(() => {
               </div>
             </div>
           </PlayBarInfoWrapper>
-          <PlayBarOperatorWrapper>
+          <PlayBarOperatorWrapper playMode={playMode}>
             <div className="operator">
               <a href="" title="画中画歌词" className="icon pip">
                 画中画歌词
@@ -201,6 +212,7 @@ const PlayerBar: FC<IProps> = memo(() => {
                 href=""
                 className="icon mode sprite_playbar"
                 title="单曲循环"
+                onClick={(e) => handlerChangePlayMode(e)}
               ></a>
               <span className="add f-pr">
                 <span className="tip sprite_playbar">已添加到播放列表</span>

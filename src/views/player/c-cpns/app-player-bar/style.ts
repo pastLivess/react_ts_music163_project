@@ -112,6 +112,7 @@ export const PlayBarControlWrapper = styled.div<any>`
     }
   }
 `
+
 export const PlayBarInfoWrapper = styled.div`
   display: flex;
   .head {
@@ -238,8 +239,10 @@ export const PlayBarInfoWrapper = styled.div`
     }
   }
 `
-
-export const PlayBarOperatorWrapper = styled.div`
+interface IOperator {
+  playMode: number
+}
+export const PlayBarOperatorWrapper = styled.div<IOperator>`
   display: flex;
   .operator {
     display: flex;
@@ -302,13 +305,31 @@ export const PlayBarOperatorWrapper = styled.div`
       }
     }
     .icon.mode {
-      background-position: -66px -344px;
+      background-position: ${(props) => {
+        switch (props.playMode) {
+          case 1:
+            return '-66px -248px'
+          case 2:
+            return '-66px -344px'
+          default:
+            return '-3px -344px'
+        }
+      }};
       width: 25px;
       height: 25px;
       margin: 11px 2px 0 0;
       text-indent: -9999px;
       &:hover {
-        background-position: -93px -344px;
+        background-position: ${(props) => {
+          switch (props.playMode) {
+            case 1:
+              return '-93px -248px'
+            case 2:
+              return '-93px -344px'
+            default:
+              return '-33px -344px'
+          }
+        }};
       }
     }
     .add {
