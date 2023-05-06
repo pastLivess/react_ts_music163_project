@@ -16,7 +16,7 @@ export const fetchCurrentSongAction = createAsyncThunk(
     getSongLyric(id).then((res) => {
       const lyricString = res.lrc.lyric
       const lyrics = parseLyric(lyricString)
-      console.log(lyrics)
+      // console.log(lyrics)
       dispatch(changeCurrentSongLyricAction(lyrics))
     })
   }
@@ -25,10 +25,12 @@ export const fetchCurrentSongAction = createAsyncThunk(
 interface IPlayerState {
   currentSong: any
   currentSongLyric: ILyrics[]
+  currentSongLyricIndex: number
 }
 const initialState: IPlayerState = {
   currentSong: {},
-  currentSongLyric: []
+  currentSongLyric: [],
+  currentSongLyricIndex: -1
 }
 const playerStore = createSlice({
   name: 'player',
@@ -39,9 +41,15 @@ const playerStore = createSlice({
     },
     changeCurrentSongLyricAction(state, { payload }) {
       state.currentSongLyric = payload
+    },
+    changeCurrentSongLyricIndexAction(state, { payload }) {
+      state.currentSongLyricIndex = payload
     }
   }
 })
-export const { changeCurrentSongAction, changeCurrentSongLyricAction } =
-  playerStore.actions
+export const {
+  changeCurrentSongAction,
+  changeCurrentSongLyricAction,
+  changeCurrentSongLyricIndexAction
+} = playerStore.actions
 export default playerStore.reducer

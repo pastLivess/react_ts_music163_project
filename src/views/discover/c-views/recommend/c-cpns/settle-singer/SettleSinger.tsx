@@ -16,7 +16,7 @@ const SettleSinger: FC<IProps> = memo((props: IProps) => {
     }),
     shallowEqual
   )
-  console.log(topArtist)
+  // console.log(topArtist)
 
   return (
     <SettleSingerWrapper>

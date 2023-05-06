@@ -6,18 +6,20 @@ import {
   PlayBarInfoWrapper,
   PlayBarOperatorWrapper
 } from './style'
-import { useAppSelector } from '@/hooks/types/app'
+import { useAppDispatch, useAppSelector } from '@/hooks/types/app'
 import { shallowEqual } from 'react-redux'
 import { formatImageToSize, formatTime } from '@/utils/format'
 import { Slider } from 'antd'
 import { getSongUrl } from '@/services/modules/player'
+import { changeCurrentSongLyricIndexAction } from '@/store/modules/player'
 
 interface IProps {
   children?: ReactNode
 }
 
-const PlayerBar: FC<IProps> = memo((props: IProps) => {
+const PlayerBar: FC<IProps> = memo(() => {
   const audioRef = useRef<HTMLAudioElement>(null)
+  const dispatch = useAppDispatch()
   // 播放控件
   const [isPlaying, setIsPlaying] = useState(false)
   // 进度条 播放的时间
@@ -28,12 +30,15 @@ const PlayerBar: FC<IProps> = memo((props: IProps) => {
   const [currentTime, setCurrentTime] = useState(0)
   // 记录拖拽情况
   const [isSliderChange, setIsSliderChange] = useState(false)
-  const { currentSong } = useAppSelector(
-    (state) => ({
-      currentSong: state.player.currentSong
-    }),
-    shallowEqual
-  )
+  const { currentSong, currentSongLyric, currentSongLyricIndex } =
+    useAppSelector(
+      (state) => ({
+        currentSong: state.player.currentSong,
+        currentSongLyric: state.player.currentSongLyric,
+        currentSongLyricIndex: state.player.currentSongLyricIndex
+      }),
+      shallowEqual
+    )
   useEffect(() => {
     getSongUrl(currentSong.id).then((res) => {
       audioRef.current!.src = res.data[0].url
@@ -57,6 +62,20 @@ const PlayerBar: FC<IProps> = memo((props: IProps) => {
       setCurrentTime(currentTime * 1000)
     }
     setIsSliderChange(false)
+    let index = currentSongLyric.length - 1
+    for (let i = 0; i < currentSongLyric.length; i++) {
+      const lyric = currentSongLyric[i]
+      // 如果那一句歌词大于我们当前播放时的这个时间
+      // 就找到这个index了是当前这一个大于的前一个索引位置
+      if (lyric.time > currentTime * 1000) {
+        index = i - 1
+        break
+      }
+    }
+    // 匹配上歌词的索引后,保存起来即可,不要在匹配了,节约性能
+    if (currentSongLyricIndex === index || index === -1) return
+    dispatch(changeCurrentSongLyricIndexAction(index))
+    console.log(currentSongLyric[index]?.text)
   }
   function handlerPlayBtnClick(e: any) {
     e.preventDefault()
