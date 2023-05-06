@@ -215,7 +215,7 @@ export const PlayBarInfoWrapper = styled.div`
         .ant-slider-handle {
           inset-block-start: none;
           &::after {
-            top: -5px;
+            top: -4px;
             right: -13px;
             width: 22px;
             height: 24px;
