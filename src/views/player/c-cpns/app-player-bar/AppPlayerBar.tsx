@@ -9,7 +9,7 @@ import {
 import { useAppDispatch, useAppSelector } from '@/hooks/types/app'
 import { shallowEqual } from 'react-redux'
 import { formatImageToSize, formatTime } from '@/utils/format'
-import { Slider } from 'antd'
+import { Slider, message } from 'antd'
 import { getSongUrl } from '@/services/modules/player'
 import { changeCurrentSongLyricIndexAction } from '@/store/modules/player'
 
@@ -75,7 +75,13 @@ const PlayerBar: FC<IProps> = memo(() => {
     // 匹配上歌词的索引后,保存起来即可,不要在匹配了,节约性能
     if (currentSongLyricIndex === index || index === -1) return
     dispatch(changeCurrentSongLyricIndexAction(index))
-    console.log(currentSongLyric[index]?.text)
+    // 展示歌词的antd组件
+    message.open({
+      content: currentSongLyric[index]?.text,
+      key: 'lyric',
+      duration: 0
+    })
+    // console.log(currentSongLyric[index]?.text)
   }
   function handlerPlayBtnClick(e: any) {
     e.preventDefault()
