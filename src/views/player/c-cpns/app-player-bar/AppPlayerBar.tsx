@@ -10,11 +10,12 @@ import { useAppDispatch, useAppSelector } from '@/hooks/types/app'
 import { shallowEqual } from 'react-redux'
 import { formatImageToSize, formatTime } from '@/utils/format'
 import { Slider, message } from 'antd'
-import { getSongUrl } from '@/services/modules/player'
 import {
   changeCurrentSongLyricIndexAction,
+  changeMusicAction,
   changePlayModeAction
 } from '@/store/modules/player'
+import { getPlayerUrl } from '@/utils/handle-player'
 
 interface IProps {
   children?: ReactNode
@@ -44,9 +45,15 @@ const PlayerBar: FC<IProps> = memo(() => {
       shallowEqual
     )
   useEffect(() => {
-    getSongUrl(currentSong.id).then((res) => {
-      audioRef.current!.src = res.data[0].url
-    })
+    audioRef.current!.src = getPlayerUrl(currentSong.id)
+    audioRef.current
+      ?.play()
+      .then(() => {
+        setIsPlaying(true)
+      })
+      .catch(() => {
+        setIsPlaying(false)
+      })
     //获取音乐总时长
     setDuration(currentSong.dt)
   }, [currentSong])
@@ -79,13 +86,14 @@ const PlayerBar: FC<IProps> = memo(() => {
     // 匹配上歌词的索引后,保存起来即可,不要在匹配了,节约性能
     if (currentSongLyricIndex === index || index === -1) return
     dispatch(changeCurrentSongLyricIndexAction(index))
+
     // 展示歌词的antd组件
     message.open({
       content: currentSongLyric[index]?.text,
       key: 'lyric',
       duration: 0
     })
-    // console.log(currentSongLyric[index]?.text)
+    console.log(currentSongLyric[index]?.text)
   }
   function handlerPlayBtnClick(e: any) {
     e.preventDefault()
@@ -122,6 +130,23 @@ const PlayerBar: FC<IProps> = memo(() => {
     if (newPlayMode > 2) newPlayMode = 0
     dispatch(changePlayModeAction(newPlayMode))
   }
+  // 时间结束后根据播放模式选择歌曲切换
+  function handlerTimeEnded() {
+    // console.log(1)
+
+    // 单曲循环
+    if (playMode === 2) {
+      audioRef.current!.currentTime = 0
+      audioRef.current?.play()
+    } else {
+      handlerChangeMusic(true)
+    }
+  }
+  // 播放上下按钮
+  function handlerChangeMusic(isNext = true, e?: any) {
+    if (e) e.preventDefault()
+    dispatch(changeMusicAction(isNext))
+  }
   return (
     <AppPlayBarWrapper>
       <div className="playbar">
@@ -135,7 +160,12 @@ const PlayerBar: FC<IProps> = memo(() => {
         <div className="wrap">
           <PlayBarControlWrapper isPlaying={isPlaying}>
             <div className="btns">
-              <a href="" title="上一首" className="prev sprite_playbar">
+              <a
+                href=""
+                onClick={(e) => handlerChangeMusic(false, e)}
+                title="上一首"
+                className="prev sprite_playbar"
+              >
                 上一首
               </a>
               <a
@@ -146,7 +176,12 @@ const PlayerBar: FC<IProps> = memo(() => {
               >
                 播放/暂停
               </a>
-              <a href="" title="下一首" className="next sprite_playbar">
+              <a
+                href=""
+                onClick={(e) => handlerChangeMusic(true, e)}
+                title="下一首"
+                className="next sprite_playbar"
+              >
                 下一首
               </a>
             </div>
@@ -226,7 +261,11 @@ const PlayerBar: FC<IProps> = memo(() => {
         </div>
       </div>
 
-      <audio ref={audioRef} onTimeUpdate={handlerTimeUpDate} loop={true} />
+      <audio
+        ref={audioRef}
+        onTimeUpdate={handlerTimeUpDate}
+        onEnded={handlerTimeEnded}
+      />
     </AppPlayBarWrapper>
   )
 })

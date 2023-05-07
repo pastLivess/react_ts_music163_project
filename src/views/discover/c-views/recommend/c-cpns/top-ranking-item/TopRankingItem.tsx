@@ -2,12 +2,19 @@ import React, { memo } from 'react'
 import type { ReactNode, FC } from 'react'
 import { TopRankingItemWrapper } from './style'
 import { formatImageToSize } from '@/utils/format'
+import { useAppDispatch } from '@/hooks/types/app'
+import { fetchCurrentSongAction } from '@/store/modules/player'
 interface IProps {
   children?: ReactNode
   itemData: any
 }
 
 const TopRankingItem: FC<IProps> = memo(({ itemData }: IProps) => {
+  const dispatch = useAppDispatch()
+  function handlerPlayClick(id: number, e: any) {
+    e.preventDefault()
+    dispatch(fetchCurrentSongAction(id))
+  }
   return (
     <TopRankingItemWrapper>
       <div className="top">
@@ -41,6 +48,7 @@ const TopRankingItem: FC<IProps> = memo(({ itemData }: IProps) => {
                 <div className="control">
                   <a
                     title="播放"
+                    onClick={(e) => handlerPlayClick(item.id, e)}
                     href=""
                     className="icon icon-play sprite_02"
                   ></a>

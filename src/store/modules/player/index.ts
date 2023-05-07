@@ -3,10 +3,13 @@ import { getSongDetail, getSongLyric } from '@/services/modules/player'
 import { ILyrics, parseLyric } from '@/utils/parse-lyric'
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 
+interface IThunkState {
+  state: IRootState
+}
 export const fetchCurrentSongAction = createAsyncThunk<
   void,
   number,
-  { state: IRootState }
+  IThunkState
 >('currentSong', (id: number, { dispatch, getState }) => {
   const playSongList = getState().player.playSongList // 1.获取当前歌曲信息
   // 如果在我们播放列表中找到和我们听的歌id一样,返回他的索引
@@ -40,6 +43,38 @@ export const fetchCurrentSongAction = createAsyncThunk<
     dispatch(changeCurrentSongLyricAction(lyrics))
   })
 })
+
+export const changeMusicAction = createAsyncThunk<void, boolean, IThunkState>(
+  'changemusic',
+  (isNext, { dispatch, getState }) => {
+    // 2.根据不同模式计算下一首歌曲的索引
+    const player = getState().player
+    const palyMode = player.playMode
+    const songList = player.playSongList
+    const songIndex = player.playSongIndex
+    let newIndex = songIndex
+    // 随机播放
+    if (palyMode === 1) {
+      newIndex = Math.floor(Math.random() * songList.length)
+    } else {
+      // 单曲循环和顺序播放
+      newIndex = isNext ? songIndex + 1 : songIndex - 1
+      if (newIndex > songList.length - 1) newIndex = 0
+      if (newIndex < 0) newIndex = songList.length - 1
+    }
+    // 获取当前歌曲
+    const song = songList[newIndex]
+    dispatch(changeCurrentSongAction(song))
+    dispatch(changePlaySongIndexAction(newIndex))
+    // 2.获取当前歌词信息
+    getSongLyric(song.id).then((res) => {
+      const lyricString = res.lrc.lyric
+      const lyrics = parseLyric(lyricString)
+      // console.log(lyrics)
+      dispatch(changeCurrentSongLyricAction(lyrics))
+    })
+  }
+)
 
 interface IPlayerState {
   currentSong: any
